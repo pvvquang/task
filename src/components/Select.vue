@@ -1,10 +1,20 @@
 <template>
   <div>
     <div class="select" :class="{ active: showListProvince }">
-      <span class="title" @click="handleShowProvince">Chọn tỉnh thành</span>
+      <input
+        type="text"
+        placeholder="Chọn tỉnh thành"
+        class="title"
+        v-model="searchName"
+        @click="handleShowProvince"
+      />
       <div class="select__wrap" v-show="showListProvince">
         <div class="select__list">
-          <div class="select__item" v-for="item in provinces" :key="item.code">
+          <div
+            class="select__item"
+            v-for="item in listProvince"
+            :key="item.code"
+          >
             <input
               type="checkbox"
               :id="item.code"
@@ -46,11 +56,13 @@ export default {
       provinces: [],
       showListProvince: false,
       listSelected: [],
+      searchName: "",
     };
   },
   methods: {
     handleShowProvince() {
       this.showListProvince = !this.showListProvince;
+      this.searchName = "";
     },
     deleteProvince(province) {
       this.listSelected = this.listSelected.filter(
@@ -60,11 +72,21 @@ export default {
     handleCancel() {
       this.showListProvince = !this.showListProvince;
       this.listSelected = [];
+      this.searchName = "";
     },
   },
   computed: {
     showListSelected() {
       return this.listSelected.length > 0;
+    },
+    listProvince() {
+      if (this.searchName) {
+        return this.provinces.filter((item) => {
+          return item.name.toLowerCase().match(this.searchName.toLowerCase());
+        });
+      } else {
+        return this.provinces;
+      }
     },
   },
   created() {
@@ -101,6 +123,8 @@ export default {
     line-height: 1;
     padding: 15px 10px;
     width: 100%;
+    border: unset;
+    border-radius: 4px;
   }
 
   &::after {
