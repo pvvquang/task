@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="select" :class="{active: showListProvince}">
+    <div class="select" :class="{ active: showListProvince }">
       <span class="title" @click="handleShowProvince">Chọn tỉnh thành</span>
       <div class="select__wrap" v-show="showListProvince">
         <div class="select__list">
@@ -86,11 +86,11 @@ export default {
   position: relative;
   cursor: pointer;
   z-index: 2;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 
   &.active {
-    border-color: #007BC3;
-    box-shadow: 0px 0px 8px 0px #007BC352;
+    border-color: #007bc3;
+    box-shadow: 0px 0px 8px 0px #007bc352;
   }
 
   .title {
@@ -130,6 +130,19 @@ export default {
     margin: 8px 0;
     height: 240px;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #dcdcdc;
+      border-radius: 30px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
   }
 
   &__item {
