@@ -74,6 +74,10 @@ export default {
       this.listSelected = [];
       this.searchName = "";
     },
+    async getApi() {
+      const response = await axios.get("https://provinces.open-api.vn/api/");
+      this.provinces = response.data;
+    });
   },
   computed: {
     showListSelected() {
@@ -90,9 +94,9 @@ export default {
     },
   },
   created() {
-    axios.get("https://provinces.open-api.vn/api/").then((response) => {
-      this.provinces = response.data;
-    });
+    this.getApi();
+    }
+    
   },
 };
 </script>
